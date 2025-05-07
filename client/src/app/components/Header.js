@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react'
 import { FaUserDoctor } from 'react-icons/fa6';
 import { MdOutlineSearch } from "react-icons/md";
-
+import logo from '../../../public/navLogo.png'
 
 const Header = () => {
   return (
@@ -15,7 +15,7 @@ const Header = () => {
 
 <span className="center">
 <Link aria-label='home' href={'/'}>
-<Image loading='lazy' src={'https://images.apollo247.in/images/icons/apollo247.svg'} width={50} alt='logo' height={30}/>
+<Image loading='lazy' className='mix-blend-multiply' src={logo} width={50} alt='logo' height={30}/>
 </Link>
 </span>
 
