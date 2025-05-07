@@ -211,14 +211,27 @@ filterFields.filter(item=>item?.select.value==select).map((item,indx)=>{
 
             </span>
 
-           <div className="btn flex flex-1 gap-2 max-h-[100px]">
+           <div className="btn flex flex-1 gap-2 max-h-[100px] capitalize">
 
-<button onClick={()=>console.log( filterFields.filter(item=>item?.select.value==select))
-} type="button" className=' transition ease duration-500 flex-1 border-1 p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 text-slate-200 max-h-[40px]'>
-cancel
+<button 
+onClick={()=>setFilterData({
+  
+  facility:[],
+  consultType:[],
+  experience:[],
+  fee:[],
+  language:[],
+  sort:"available",
+  page:1,
+  limit:5
+
+
+})
+} type="button" className='capitalize transition ease duration-500 flex-1 border-1 p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 text-slate-200 max-h-[40px]'>
+clear
 </button>
 
-<button  onClick={()=>console.log(filterData)} type="button" className=' transition ease duration-500 flex-1 border-1 p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 text-slate-200 max-h-[40px]'>
+<button  onClick={()=>console.log(filterData)} type="button" className='capitalize transition ease duration-500 flex-1  p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 bg-purple-800 shadow-lg text-slate-200 max-h-[40px]'>
 apply
 </button>
 </div>
@@ -229,11 +242,12 @@ apply
     const Sort = () => {
         const options = [{ title: 'Relevance', value: "relevance" },
         { title: 'Availability', value: "available" },
-        { title: 'Nearby', value: "nearby" },
+        // { title: 'Nearby', value: "nearby" },
         { title: 'Price - low to high', value: "lowToHigh" },
         { title: 'Price - High to low', value: "highToLow" },
         { title: 'Years of Experience', value: "experience" },
-        { title: 'Most Liked', value: "like" }]
+        // { title: 'Most Liked', value: "like" }
+    ]
         return (
             <div className="p-4 pt-8 flex flex-col g">
 

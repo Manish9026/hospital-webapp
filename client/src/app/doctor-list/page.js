@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import Filter from '../components/Filter'
 import { DoctorCard } from '../components/DocterCard';
-import axios from 'axios';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FaUserMd, FaPlus } from "react-icons/fa";
 import { getDoctorDetails } from '../services/doctor';
 
 
@@ -25,15 +27,33 @@ export function LoadingCard({className}) {
 }
 
 
+export default function NoDoctorsFound() {
+  return (
+    <motion.div
+      className="flex flex-col items-center justify-center w-full py-20 px-4 text-center"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <FaUserMd className="text-blue-500 text-6xl mb-4" />
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-700 mb-2">No Doctors Found</h2>
+      <p className="text-gray-500 max-w-md mb-6">
+        We couldn't find any doctors matching your filters. You can try adjusting your search criteria or add a new doctor to the system.
+      </p>
+
+      <Link href="/add-doctor">
+        <button className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-xl transition-all shadow">
+          <FaPlus />
+          Add New Doctor
+        </button>
+      </Link>
+    </motion.div>
+  );
+}
+
+
+
 export const DoctorList = () => {
-  const dummyDoctor = {
-    name: "Dr. Radhika Sharma",
-    specialty: "Cardiologist",
-    experience: 12,
-    location: "New Delhi",
-    fee: 1200,
-    image: "https://res.cloudinary.com/demo/image/upload/v1680000000/sample.jpg",
-  };
 
   const [loading,setLoading]=useState(false)
   const [doctorList,setDoctorList]=useState([])
@@ -50,6 +70,7 @@ export const DoctorList = () => {
   
   
       })
+  const [filterChanges,setFilterChanges]=useState(true)    
   useEffect(()=>{
     setLoading(true)
    getDoctorDetails(filterData).then((res)=>{
@@ -64,7 +85,7 @@ export const DoctorList = () => {
 
   })
 
-  },[filterData])
+  },[filterData,filterChanges])
   return (
     <div className='flex w-full flex-col'>
         <Filter filterData={filterData} setFilterData={setFilterData}/>
@@ -75,9 +96,9 @@ export const DoctorList = () => {
             }
 
      {     
-      doctorList && doctorList?.length>0 && doctorList.map(doctor=>{
+      !loading && doctorList && doctorList?.length>0 ? doctorList.map(doctor=>{
         return (<DoctorCard key={doctor?._id}doctor={doctor} />)
-      }) }
+      }):<NoDoctorsFound/> }
       
 
     </div>

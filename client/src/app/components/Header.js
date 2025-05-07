@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
+import { FaUserDoctor } from 'react-icons/fa6';
 import { MdOutlineSearch } from "react-icons/md";
 
 
@@ -31,7 +32,11 @@ const Header = () => {
 
 <span className="flex-1 flex justify-end">
 
-    <Link href="add-doctor" className='bg-purple-500 p-3 text-slate-200 rounded-md capitalize cursor-pointer active:scale-90 transition ease duration-500' > add doctor</Link>
+    <Link href="add-doctor" className='bg-purple-500 p-3 text-slate-200 rounded-md capitalize cursor-pointer hidden sm:flex active:scale-90 transition ease duration-500' > add doctor</Link>
+
+    <Link href="add-doctor" className='bg-purple-500 p-3 text-slate-200 rounded-md capitalize cursor-pointer sm:hidden active:scale-90 transition ease duration-500' ><FaUserDoctor /> </Link>
+
+
 </span>
 
     </div>
