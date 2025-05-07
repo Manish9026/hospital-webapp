@@ -8,12 +8,20 @@ import { GiCrossMark } from "react-icons/gi";
 const Filter = ({filterData,setFilterData}) => {
     const [active, setActive] = useState({
         filter: false,
-        sort: true,
+        sort: false,
         status: false
     })
 
 
     const [select,setSelect]=useState("consultType");
+
+    const reset=()=>{
+        setActive({
+            filter: false,
+            sort: false,
+            status: false
+        })
+    }
     const FilterOpr = () => {
 
      const filterFields=[
@@ -214,7 +222,7 @@ filterFields.filter(item=>item?.select.value==select).map((item,indx)=>{
            <div className="btn flex flex-1 gap-2 max-h-[100px] capitalize">
 
 <button 
-onClick={()=>setFilterData({
+onClick={()=>{setFilterData({
   
   facility:[],
   consultType:[],
@@ -226,12 +234,12 @@ onClick={()=>setFilterData({
   limit:5
 
 
-})
+});reset()}
 } type="button" className='capitalize transition ease duration-500 flex-1 border-1 p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 text-slate-200 max-h-[40px]'>
 clear
 </button>
 
-<button  onClick={()=>console.log(filterData)} type="button" className='capitalize transition ease duration-500 flex-1  p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 bg-purple-800 shadow-lg text-slate-200 max-h-[40px]'>
+<button  onClick={()=>reset()} type="button" className='capitalize transition ease duration-500 flex-1  p-2 rounded-lg active:scale-90 will-change-transform cursor-pointer border-sky-900 bg-purple-800 shadow-lg text-slate-200 max-h-[40px]'>
 apply
 </button>
 </div>
@@ -265,7 +273,7 @@ apply
                                 <label key={index} htmlFor={"sort" + index} className='flex gap-2 cursor-pointer transition ease duration-700 items-center has-checked:bg-indigo-50 has-checked:text-indigo-900 has-checked:ring-indigo-200 p-2 rounded-md hover:bg-slate-100'>
                                     <input type="radio" className='cursor-pointer checked:border-indigo-500 '
                                     checked={filterData?.sort==item?.value}
-                                    onChange={(e)=>setFilterData(prev=>({...prev,sort:e.target.value}))} name="sort" value={item?.value} id={"sort" + index} />
+                                    onChange={(e)=>{setFilterData(prev=>({...prev,sort:e.target.value}));reset()}} name="sort" value={item?.value} id={"sort" + index} />
 
                                     {item?.title}
                                 </label>
@@ -285,9 +293,9 @@ apply
 
             <div className='flex padding-px py-2 w-full items-center border-b-1 border-t-1 gap-2'>
 
-                <span onClick={() => setActive(prev => ({ ...prev, status: !prev.status,sort:true,filter:false }))} className="center cursor-pointer bg-sky-300 p-2 rounded-md gap-2">
+                <span onClick={() => setActive(prev => ({ ...prev, status: !prev.status,sort:true,filter:false }))} className="center cursor-pointer bg-sky-300 p-2 rounded-md gap-2 capitalize">
 
-                    Availability
+                    {filterData?.sort}
                     <FaAngleDown />
                 </span>
 

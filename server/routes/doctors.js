@@ -62,18 +62,25 @@ const getFilterQurey=(filterData)=>{
 
   if (facility?.length) query.facility = { $in: facility };
   if (consultType?.length) query.consultType = { $in: consultType };
-  if (experience?.length)  query.$or = experience.map(r => ({ experience: { $gte:r?.min, $lte: r?.max } }));; // or use range
-  if (fee?.length) {
-    // Parse fee ranges like [{ min: 0, max: 500 }]
-    // const feeRanges = JSON.parse(fee); // if sent as JSON string
-    // console.log("freRange",feeRanges);
-//     const minValues = fee.map(f => Number(f.min));
-// const maxValues = fee.map(f => Number(f.max));
-// console.log(minValues[0], maxValues[maxValues?.length-1] || null);
+  if (experience?.length) { query.$or = experience.map(({min,max} )=> {
 
-    
-    query.$or = fee.map(r => ({ fee: { $gte:r?.min, $lte: r?.max } }));
-    // query.$or=[{fee:$gte}]
+    if(max !== null && max !== undefined && max !== ""){
+      return { experience: { $gte: min, $lte: max } };
+    }else{
+      return { experience: { $gte: min } };
+    } 
+  })
+}
+  if (fee?.length) {
+
+    query.$or = fee.map(({min,max}) =>{
+      if(max !== null && max !== undefined && max !== ""){
+        return { fee: { $gte: min, $lte: max } };
+      }else{
+        return { fee: { $gte: min } };
+      } 
+    });
+
   }
   if (language?.length) query.language = { $in: language };
 
@@ -85,8 +92,8 @@ const getSortQuery = (sort) => {
 
   const sortOptions = {
     available: { available: -1 },
-    lowToHigh: { price: 1 },
-    highToLow: { price: -1 },
+    lowToHigh: { fee: 1 },
+    highToLow: { fee: -1 },
     experience: { experience: -1 },
     like: { likes: -1 },
     relevance: { _id: 1 } // fallback or relevance case
@@ -100,12 +107,12 @@ doctorRouter.get("/doctor-detail", async (req, res) => {
   // console.log(parsedQuery);
   
   const query =getFilterQurey(filterData);
-  console.log(query);
+  // console.log(JSON.stringify(query),getSortQuery(sort));
   
 
   try {
-    const doctors = await doctorModel.find(query)
-      .skip((page - 1) * limit).sort(getSortQuery(sort))
+    const doctors = await doctorModel.find(query).sort(getSortQuery(sort))
+      .skip((page - 1) * limit)
       .limit(parseInt(limit));
     const total = await doctorModel.countDocuments(query);
     res.json({ total, page: parseInt(page), data: doctors });
