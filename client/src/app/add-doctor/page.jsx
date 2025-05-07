@@ -205,10 +205,10 @@ function InputField({ icon, label,className, children, error }) {
 }
 
 
-const page = () => {
+const Page = () => {
   return (
   <AddDoctorForm/>
   )
 }
 
-export default page
+export default Page
