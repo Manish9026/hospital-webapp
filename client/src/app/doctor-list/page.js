@@ -38,7 +38,7 @@ export default function NoDoctorsFound() {
       <FaUserMd className="text-blue-500 text-6xl mb-4" />
       <h2 className="text-3xl sm:text-4xl font-bold text-gray-700 mb-2">No Doctors Found</h2>
       <p className="text-gray-500 max-w-md mb-6">
-        We couldn't find any doctors matching your filters. You can try adjusting your search criteria or add a new doctor to the system.
+        We couldn&apos;t find any doctors matching your filters. You can try adjusting your search criteria or add a new doctor to the system.
       </p>
 
       <Link href="/add-doctor">
