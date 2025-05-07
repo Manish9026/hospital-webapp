@@ -110,7 +110,7 @@ export const DoctorList = () => {
 
 className="min-w-full"
 currentPage={filterData.page}
-totalPages={Math.floor(totalPages/filterData?.limit) || 1}
+totalPages={Math.ceil(totalPages/filterData?.limit) || 1}
 onPageChange={(newPage) =>
   setFilterData((prev) => ({ ...prev, page: newPage }))
 }

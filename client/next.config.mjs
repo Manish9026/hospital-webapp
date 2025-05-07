@@ -10,9 +10,9 @@ const nextConfig = {
   },
 
    // Enable SWC minification
-   optimization: {
-    minimize: true,
-  },
+  //  optimization: {
+  //   minimize: true,
+  // },
 
 };
 
