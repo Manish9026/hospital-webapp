@@ -25,7 +25,7 @@ export function LoadingCard({className}) {
 }
 
 
-const Page = () => {
+export const DoctorList = () => {
   const dummyDoctor = {
     name: "Dr. Radhika Sharma",
     specialty: "Cardiologist",
@@ -85,4 +85,3 @@ const Page = () => {
   )
 }
 
-export default Page

@@ -1,4 +1,4 @@
-import  DoctorList  from "./doctor-list/page";
+import  {DoctorList}  from "./doctor-list/page";
 
 import React from 'react'
 import { getDoctorDetails } from "./services/doctor";
