@@ -4,7 +4,6 @@ const nextConfig = {
         domains: ["res.cloudinary.com"],
       },
       compress: true,
-  swcMinify: true,
   experimental: {
     serverActions: true,
     optimizeCss: true,
@@ -14,9 +13,7 @@ const nextConfig = {
    optimization: {
     minimize: true,
   },
-  turbopack: {
-    enabled: true,
-  },
+
 };
 
 export default nextConfig;
