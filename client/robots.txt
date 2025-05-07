@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hospital-webapp-rho.vercel.app/sitemap.xml

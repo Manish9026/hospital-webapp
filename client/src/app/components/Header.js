@@ -14,8 +14,8 @@ const Header = () => {
 
 
 <span className="center">
-<Link href={'/'}>
-<Image src={'https://images.apollo247.in/images/icons/apollo247.svg'} width={50} alt='logo' height={30}/>
+<Link aria-label='home' href={'/'}>
+<Image loading='lazy' src={'https://images.apollo247.in/images/icons/apollo247.svg'} width={50} alt='logo' height={30}/>
 </Link>
 </span>
 
@@ -34,7 +34,7 @@ const Header = () => {
 
     <Link href="add-doctor" className='bg-purple-500 p-3 text-slate-200 rounded-md capitalize cursor-pointer hidden sm:flex active:scale-90 transition ease duration-500' > add doctor</Link>
 
-    <Link href="add-doctor" className='bg-purple-500 p-3 text-slate-200 rounded-md capitalize cursor-pointer sm:hidden active:scale-90 transition ease duration-500' ><FaUserDoctor /> </Link>
+    <Link  aria-label="add-doctor" href="add-doctor" className='bg-purple-500 p-3 text-slate-200 rounded-md capitalize cursor-pointer sm:hidden active:scale-90 transition ease duration-500' ><FaUserDoctor /> </Link>
 
 
 </span>

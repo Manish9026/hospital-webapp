@@ -9,9 +9,10 @@ import {
   FaMoneyBillWave,
   FaLocationArrow,
 } from "react-icons/fa";
+import { SiTaichilang } from "react-icons/si";
 import { MdMiscellaneousServices } from "react-icons/md";
 
-export const DoctorCard = ({ doctor }) => {
+ const DoctorCard = ({ doctor }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -30,14 +31,17 @@ export const DoctorCard = ({ doctor }) => {
     >
         <span className="flex items-center gap-2 flex-wrap">
 
-          <span className="relative">
+          <span className="relative size-[80px]">
           <Image
         src={doctor.image || "doctor-placeholder.jpg"}
-        width={50}
-        height={50}
-        
+        // width={50}
+        // height={50}
+      loading="lazy"
+        layout="fill"
+        objectFit="fill"
+        // placeholder="blur" 
         alt={doctor.name || "doctor image"}
-        className="size-[80px] relative  rounded-full "
+        className="size-[100px] relative  rounded-full "
       />
       <p className={`absolute bottom-0 right-3 size-3 z-20 ${doctor?.available?'bg-green-400':'bg-red-400' } rounded-full `} ></p>
           </span>
@@ -74,15 +78,20 @@ export const DoctorCard = ({ doctor }) => {
 {doctor?.facility?.join(",")}
         </p>}
 
-        { doctor?.location &&  <p className="flex items-center gap-2 font-medium">
-<FaLocationArrow className="text-sky-800 text-md"/>
-{doctor?.location}
+        { doctor?.languages && doctor?.languages?.length>0 &&  <p className="flex items-center gap-2 font-medium">
+
+
+<SiTaichilang className="text-sky-800 text-md"/>
+
+{doctor?.languages?.join(',')}
         </p>}
       </div>
 
       <div className="flex">
-        <button type="button" className="p-2 bg-violet-700 rounded-md flex-1 text-slate-300 hover:bg-violet-500 cursor-pointer hover:text-slate-100">Book for {doctor?.consultType}</button>
+        <button type="button" onClick={()=>alert("✅ Booked your slot")} className="p-2 bg-violet-700 rounded-md flex-1 text-slate-300 hover:bg-violet-500 cursor-pointer hover:text-slate-100">Book for {doctor?.consultType}</button>
       </div>
     </motion.div>
   );
 }
+
+export default DoctorCard

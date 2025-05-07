@@ -1,13 +1,14 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import Filter from '../components/Filter'
-import { DoctorCard } from '../components/DocterCard';
+import React, { lazy, useEffect, useState } from 'react'
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaUserMd, FaPlus } from "react-icons/fa";
 import { getDoctorDetails } from '../services/doctor';
+// import Pagination from '../components/Pagination';
 
-
+const DoctorCard=lazy(()=>import("../components/DocterCard"))
+const Filter=lazy(()=>import("../components/Filter"))
+const Pagination=lazy(()=>import('../components/Pagination'))
 
 export function LoadingCard({className}) {
   return (
@@ -56,7 +57,8 @@ export default function NoDoctorsFound() {
 export const DoctorList = () => {
 
   const [loading,setLoading]=useState(false)
-  const [doctorList,setDoctorList]=useState([])
+  const [doctorList,setDoctorList]=useState(null);
+  const [totalPages,setTotalPages]=useState(0)
   const [filterData,setFilterData]=useState({
   
           facility:[],
@@ -70,14 +72,15 @@ export const DoctorList = () => {
   
   
       })
-  const [filterChanges,setFilterChanges]=useState(true)    
+  const [filterChanges,setFilterChanges]=useState(true);    
   useEffect(()=>{
     setLoading(true)
    getDoctorDetails(filterData).then((res)=>{
     setLoading(false);
   
     setDoctorList(res?.data?.data)
-    console.log(res?.data?.data)
+    setTotalPages(res?.data?.total)
+    console.log(res?.data)
   }
   
   ).catch((err)=>{
@@ -87,20 +90,31 @@ export const DoctorList = () => {
 
   },[filterData,filterChanges])
   return (
-    <div className='flex w-full flex-col'>
+    <div className='flex flex-1 w-full h-full flex-col'>
         <Filter filterData={filterData} setFilterData={setFilterData}/>
-        <div className="min-h-screen  py-10 px-4 flex justify-center flex-wrap  gap-2 sm:gap-4">
+        <div className="flex-1 py-10 px-4 flex justify-center flex-wrap  gap-2 sm:gap-4">
 
             {
               loading && Array(4).fill(0).map((_,index)=>(<LoadingCard key={index} className='flex-1 max-w-[200px] sm:max-w-[300px] md:max-w-[450px] min-w-[300px]' />))
             }
 
      {     
-      !loading && doctorList && doctorList?.length>0 ? doctorList.map(doctor=>{
+       doctorList && doctorList?.length>0 ? doctorList.map(doctor=>{
         return (<DoctorCard key={doctor?._id}doctor={doctor} />)
       }):<NoDoctorsFound/> }
+
+
       
 
+<Pagination 
+
+className="min-w-full"
+currentPage={filterData.page}
+totalPages={Math.floor(totalPages/filterData?.limit) || 1}
+onPageChange={(newPage) =>
+  setFilterData((prev) => ({ ...prev, page: newPage }))
+}
+/>
     </div>
     </div>
   )

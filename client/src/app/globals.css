@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+    --foreground: #ededed;
 }
 
 @theme inline {
@@ -23,16 +23,16 @@
   @apply w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   /* background: var(--foreground); */
-  @apply bg-gradient-to-br from-blue-100 to-white min-h-screen w-full;
+  @apply flex flex-col bg-gradient-to-br from-blue-100 to-white min-h-screen w-full;
   color:var(--background); 
   font-family: Arial, Helvetica, sans-serif;
   
