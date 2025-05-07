@@ -8,7 +8,14 @@ const nextConfig = {
   experimental: {
     serverActions: true,
     optimizeCss: true,
-    turbo: true,
+  },
+
+   // Enable SWC minification
+   optimization: {
+    minimize: true,
+  },
+  turbopack: {
+    enabled: true,
   },
 };
 
